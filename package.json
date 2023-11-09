@@ -4,7 +4,6 @@
   "description": "Sweep API",
   "main": "app.js",
   "scripts": {
-    "start": "",
     "build": "echo 'Building'",
     "dev": "nodemon app.js",
     "test": "echo \"Error: no test specified\" && exit 1"

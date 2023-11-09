@@ -1,11 +1,34 @@
-import express, { Router } from "express";
-import serverless from "serverless-http";
+require('dotenv').config();
+const express = require('express');
+const bodyParser = require('body-parser');
+const serverless = require('serverless-http');
 
-const api = express();
+const assetRoutes = require('../../src/routes/asset');
+const sweepRoutes = require('../../src/routes/sweep');
+// const sweeprRoutes = require('./src/routes/sweepr');
 
-const router = Router();
-router.get("/hello", (req, res) => res.send("Hello World!"));
+const app = express();
+const router = express.Router();
 
-api.use("/api/", router);
+const port = process.env.PORT || 3000;
 
-export const handler = serverless(api);
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+
+app.listen(port, async () => {
+    console.log(`Server is running on port ${port}`);
+});
+
+router.get('/', (req, res) => {
+    res.send('Sweep Analytics');
+})
+
+app.use('/api', router);
+
+// Custom routes
+app.use('/api/', assetRoutes);
+app.use('/api/', sweepRoutes);
+// app.use(sweeprRoutes);
+
+module.exports.handler = serverless(app);
+module.exports.APP = app;
