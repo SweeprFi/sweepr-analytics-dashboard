@@ -2,6 +2,7 @@ require('dotenv').config();
 
 const express = require('express');
 const bodyParser = require('body-parser');
+const serverless = require('serverless-http');
 
 const assetRoutes = require('./src/routes/asset');
 const sweepRoutes = require('./src/routes/sweep');
@@ -17,6 +18,8 @@ app.listen(port, async () => {
 });
 
 // Custom routes
-app.use(assetRoutes);
-app.use(sweepRoutes);
+app.use('/api/', assetRoutes);
+app.use('/api/', sweepRoutes);
 // app.use(sweeprRoutes);
+
+module.exports.handler = serverless(app);
