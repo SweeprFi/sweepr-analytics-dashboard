@@ -5,6 +5,10 @@ const { networks } = require("../utils/constants");
 const { Provider, Sweepr } = require("sweepr-analytics");
 
 const provider = new Provider();
+provider.setProvider("mainnet", process.env.MAINNET_KEY);
+provider.setProvider("arbitrum", process.env.ARBITRUM_KEY);
+provider.setProvider("optimism", process.env.OPTIMISTIC_KEY);
+
 const sweepr = new Sweepr(provider);
 
 router.get('/sweepr', async (req, res) => {

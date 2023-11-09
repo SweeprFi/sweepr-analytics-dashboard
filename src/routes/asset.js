@@ -3,6 +3,10 @@ const router = express.Router();
 const { Sweep, Asset, Provider } = require("sweepr-analytics");
 
 const provider = new Provider();
+provider.setProvider("mainnet", process.env.MAINNET_KEY);
+provider.setProvider("arbitrum", process.env.ARBITRUM_KEY);
+provider.setProvider("optimism", process.env.OPTIMISTIC_KEY);
+
 const sweep = new Sweep(provider);
 const asset = new Asset(provider);
 

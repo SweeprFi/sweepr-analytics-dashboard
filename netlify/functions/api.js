@@ -23,8 +23,6 @@ router.get('/', (req, res) => {
     res.send('Sweep Analytics');
 })
 
-app.use('/api', router);
-
 // Custom routes
 app.use('/api/', assetRoutes);
 app.use('/api/', sweepRoutes);
