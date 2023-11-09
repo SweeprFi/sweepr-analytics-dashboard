@@ -4,9 +4,9 @@
   "description": "Sweep API",
   "main": "app.js",
   "scripts": {
-    "start": "node app.js",
+    "start": "node functions/api.js",
+    "build": "node functions/api.js",
     "dev": "nodemon app.js",
-    "build": "echo Building Functions",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
