@@ -5,7 +5,8 @@ const serverless = require('serverless-http');
 
 const assetRoutes = require('../../src/routes/asset');
 const sweepRoutes = require('../../src/routes/sweep');
-// const sweeprRoutes = require('./src/routes/sweepr');
+const sweeprRoutes = require('../../src/routes/sweepr');
+const ammRoutes = require('../../src/routes/amm');
 
 const app = express();
 const router = express.Router();
@@ -26,7 +27,8 @@ router.get('/', (req, res) => {
 // Custom routes
 app.use('/api/', assetRoutes);
 app.use('/api/', sweepRoutes);
-// app.use(sweeprRoutes);
+app.use('/api/', sweeprRoutes);
+app.use('/api/', ammRoutes);
 
 module.exports.handler = serverless(app);
 module.exports.APP = app;
