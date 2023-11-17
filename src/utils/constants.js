@@ -1,28 +1,35 @@
 const networks = [
   "mainnet",
   "arbitrum",
-  "optimism"
+  "optimism",
+  "base",
+  // "polygon",
 ]
 
-const addresses = {
+const amms = {
   mainnet: {
-    liquidityHelper: "0xC5f0DE0D8f48E12CcDE9f1902dE15A975b59768d",
-    uniswapAsset: "0x676524646377A6e66Ca797edF7CCB1B5162a8cE0",
-    uniswapPool: "0xfCAF342A7CbE3ea38622337F8d0Df029dc68bFF5"
+    amm: "0xe3E123ED9fec48a6f40A8aC7bE9afEDDAD80F146",
+    tokenId: 0
   },
   arbitrum: {
-    liquidityHelper: "0x7560d15774499386B04A64177E090B33e803493F",
-    uniswapAsset: "0xe55D44783D8DB0684fe992e87d4703632f66cBB3",
-    uniswapPool: "0xa7F4BC4689ed386F2cCa716207A1EbBb1172aaCB"
+    amm: "0xf0604A1c725F8eeb14FF082F2275AfE0B67A32D5",
+    tokenId: 0
   },
   optimism: {
-    liquidityHelper: "0xaD490d3899A47482E31AF50DdCc5Db31C0eE9eB0",
-    uniswapAsset: "0xC5f0DE0D8f48E12CcDE9f1902dE15A975b59768d",
-    uniswapPool: "0x8A0F60a4544c712Becdf9d6c4A920F4b756186ec"
+    amm: "0x11C8eC8B0DFD355C9931cB47ADd0F635dAE062ad",
+    tokenId: 0
+  },
+  base: {
+    amm: "0x709d075147a10495e5c3bBF3dfc0c138F34C6E72",
+    tokenId: 0
+  },
+  polygon: {
+    amm: "",
+    tokenId: 0
   }
 }
 
 module.exports = {
   networks,
-  addresses
+  amms
 }

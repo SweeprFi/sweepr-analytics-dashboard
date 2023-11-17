@@ -1,23 +1,22 @@
 const express = require('express');
 const router = express.Router();
-const { Provider, Uniswap } = require('sweepr-analytics');
-const { networks, addresses } = require('../utils/constants');
+const { Provider, AMM } = require('sweepr-analytics');
+const { networks, amms } = require('../utils/constants');
 
 const provider = new Provider();
 provider.setProvider("mainnet", process.env.MAINNET_KEY);
 provider.setProvider("arbitrum", process.env.ARBITRUM_KEY);
 provider.setProvider("optimism", process.env.OPTIMISTIC_KEY);
 
-const uniswap = new Uniswap(provider);
+const amm = new AMM(provider);
 
-router.get('/uniswap/', async (req, res) => {
+router.get('/amm/', async (req, res) => {
     try {
         const response = {};
         const resposnses = await Promise.all(networks.map(async (net) => {
-            const liquidityHelper = addresses[net].liquidityHelper;
-            const uniswapAsset = addresses[net].uniswapAsset;
-            const uniswapPool = addresses[net].uniswapPool;
-            return { [`${net}`]: await uniswap.fetchData(net, uniswapAsset, liquidityHelper, uniswapPool) };
+            const ammAddress = amms[net].amm;
+            const tokenId = amms[net].tokenId;
+            return { [`${net}`]: await amm.fetchData(net, ammAddress, tokenId) };
         }));
 
         resposnses.forEach(resp => {
@@ -31,14 +30,13 @@ router.get('/uniswap/', async (req, res) => {
     }
 });
 
-router.get('/uniswap/:network', async (req, res) => {
+router.get('/amm/:network', async (req, res) => {
     try {
         const network = req.params.network;
-        const liquidityHelper = addresses[network].liquidityHelper;
-        const uniswapAsset = addresses[network].uniswapAsset;
-        const uniswapPool = addresses[network].uniswapPool;
+        const ammAddress = amms[network].amm;
+        const tokenId = amms[network].tokenId;
 
-        const response = await uniswap.fetchData(network, uniswapAsset, liquidityHelper, uniswapPool);
+        const response = await amm.fetchData(network, ammAddress, tokenId);
         res.json({ response });
     } catch (error) {
         res.json({ error: error.message });
