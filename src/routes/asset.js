@@ -21,7 +21,7 @@ router.get('/asset', async (req, res) => {
 
         res.json({ response });
     } catch (error) {
-        res.json({ error: error.message });
+        res.status(500).json({ error: error.message });
     }
 });
 
