@@ -48,6 +48,11 @@ Make sure you have the following components installed before getting started:
 1. network: (mainnet - arbitrum - optimism)
 2. account: Minter address.
 
+- GET /sweep-prices
+> Fetches the prices data (amm price - twa price - target price).
+* Query parameters:
+1. network: (mainnet - arbitrum - optimism)
+
 - GET /asset
 > Fetches all read-only data from the Asset.
 * Query parameters:

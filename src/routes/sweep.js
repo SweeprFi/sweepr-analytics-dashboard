@@ -18,18 +18,11 @@ router.get('/sweep', async (req, res) => {
             [net]: await sweep.fetchData(net)
         }));
 
-        const pricesPromises = networks.map(async (net) => {
-            const id = amms[net].poolId;
-            const token = amms[net].stableCoin;
-            return { [net]: await sweep.getPrice(net, id, token) };
-        });
-
         const allDataResults = await Promise.all(allDataPromises);
-        const pricesResults = await Promise.all(pricesPromises);
 
-        allDataResults.forEach((result, index) => {
+        allDataResults.forEach(result => {
             const net = Object.keys(result)[0];
-            response[net] = { ...result[net], ...pricesResults[index][net] };
+            response[net] = { ...result[net] };
         });
 
         res.json({ response });
@@ -110,6 +103,21 @@ router.get('/sweep-total-supply', async (req, res) => {
         const { network } = req.query;
         const response = await sweep.getTotalSupply(network);
         res.json({ response });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
+
+router.get('/sweep-prices', async (req, res) => {
+    try {
+        const { network } = req.query;
+        const [ammPrice, twaPrice, targetPrice] = await Promise.all([
+            sweep.getPrice(network),
+            sweep.getTWAPrice(network),
+            sweep.getTargetPrice(network)
+        ]);
+
+        res.json({ ...ammPrice, ...twaPrice, ...targetPrice });
     } catch (error) {
         res.status(500).json({ error: error.message });
     }

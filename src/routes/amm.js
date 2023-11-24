@@ -43,24 +43,6 @@ router.get('/amm/', async (req, res) => {
 router.get('/amm/:network', async (req, res) => {
     try {
         const network = req.params.network;
-        const ammAddress = amms[network].amm;
-        const tokenId = amms[network]?.tokenId || 0;
-        const id = amms[network].poolId;
-        const token = amms[network].stableCoin;
-        const results = await Promise.all([
-            await sweep.getPrice(network, id, token),
-            await amm.fetchData(network, ammAddress, tokenId)
-        ]);
-
-        res.json({ ...results[0], ...results[1] });
-    } catch (error) {
-        res.status(500).json({ error: error.message });
-    }
-});
-
-router.get('/amm/:network', async (req, res) => {
-    try {
-        const network = req.params.network;
 
         const ammAddress = amms[network]?.amm;
         const tokenId = amms[network]?.tokenId || 0;
