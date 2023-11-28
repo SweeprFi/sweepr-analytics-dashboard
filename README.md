@@ -13,7 +13,7 @@ Make sure you have the following components installed before getting started:
 -   Run `cd sweepr-analytics-dashboard`
 -   Run `npm i`
 -   Run `cp .env.example .env`
--   Run `npm run start`
+-   Run `npm run dev`
 -   See `http://localhost:3000/`
 
 ## Availables routes
