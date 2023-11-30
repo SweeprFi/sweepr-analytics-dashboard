@@ -21,9 +21,7 @@ router.get('/amm/', async (req, res) => {
         });
 
         const pricesPromises = networks.map(async (net) => {
-            const id = amms[net].poolId;
-            const token = amms[net].stableCoin;
-            return { [net]: await sweep.getPrice(net, id, token) };
+            return { [net]: await sweep.getPrice(net) };
         });
 
         const allDataResults = await Promise.all(allDataPromises);
@@ -46,11 +44,9 @@ router.get('/amm/:network', async (req, res) => {
 
         const ammAddress = amms[network]?.amm;
         const tokenId = amms[network]?.tokenId || 0;
-        const id = amms[network].poolId;
-        const token = amms[network].stableCoin;
  
         const [priceResult, fetchDataResult] = await Promise.all([
-            sweep.getPrice(network, id, token),
+            sweep.getPrice(network),
             amm.fetchData(network, ammAddress, tokenId)
         ]);
 

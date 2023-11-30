@@ -17,7 +17,6 @@ router.get('/sweep', async (req, res) => {
         const allDataPromises = networks.map(async (net) => ({
             [net]: await sweep.fetchData(net)
         }));
-
         const allDataResults = await Promise.all(allDataPromises);
 
         allDataResults.forEach(result => {
@@ -34,15 +33,9 @@ router.get('/sweep', async (req, res) => {
 router.get('/sweep/:network', async (req, res) => {
     try {
         const network = req.params.network;
-        const id = amms[network]?.poolId;
-        const token = amms[network]?.stableCoin;
+        const response = await sweep.fetchData(network)
 
-        const [response, price] = await Promise.all([
-            sweep.fetchData(network),
-            sweep.getPrice(network, id, token)
-        ]);
-
-        res.json({ ...response, ...price });
+        res.json({ ...response });
     } catch (error) {
         res.status(500).json({ error: error.message });
     }

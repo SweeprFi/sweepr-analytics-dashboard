@@ -7,7 +7,7 @@ router.get('/', async (req, res) => {
 });
 
 router.get('/forbidden', async (req, res) => {
-    res.json("app not allowed in the us");
+    res.json("App not allowed in the US");
 });
 
 module.exports = router;
