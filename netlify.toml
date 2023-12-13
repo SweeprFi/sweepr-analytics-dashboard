@@ -6,7 +6,3 @@
   from = "/api/*"
   status = 200
   to = "/.netlify/functions/api/:splat"
-[[edge_functions]]
-  path = "/*"
-  function = "geoblocker"
-  excludedPath = "/api/forbidden"

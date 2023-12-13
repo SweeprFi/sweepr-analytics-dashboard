@@ -8,7 +8,7 @@ const assetRoutes = require('../../src/routes/asset');
 const sweepRoutes = require('../../src/routes/sweep');
 const sweeprRoutes = require('../../src/routes/sweepr');
 const ammRoutes = require('../../src/routes/amm');
-const forbiddenRoutes = require('../../src/routes/forbidden');
+// const forbiddenRoutes = require('../../src/routes/forbidden');
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -26,7 +26,7 @@ app.use('/api/', assetRoutes);
 app.use('/api/', sweepRoutes);
 app.use('/api/', sweeprRoutes);
 app.use('/api/', ammRoutes);
-app.use('/api/', forbiddenRoutes);
+// app.use('/api/', forbiddenRoutes);
 
 module.exports.handler = serverless(app);
 module.exports.APP = app;

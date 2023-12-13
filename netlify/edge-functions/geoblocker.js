@@ -4,4 +4,3 @@ export default async (req, { geo }) => {
         return Response.redirect(url);
     }
 };
-
