@@ -14,20 +14,17 @@ const amms = {
     amm: "0xf0604A1c725F8eeb14FF082F2275AfE0B67A32D5",
   },
   optimism: {
-    amm: "0x11C8eC8B0DFD355C9931cB47ADd0F635dAE062ad",
+    amm: "0x33A48e4aA79A66fc4f7061f5D9E274528C213029",
   },
   base: {
-    amm: "0x709d075147a10495e5c3bBF3dfc0c138F34C6E72",
+    amm: "0xff368E106EA8782FaB6B2D4AD69739a60C66400E",
   },
   avalanche: {
-    amm: "0x9693AEea2B32452e0834C860E01C33295d2164a5",
+    amm: "0x709d075147a10495e5c3bBF3dfc0c138F34C6E72",
   },
   // polygon: {
   //   amm: "",
   // }
 }
 
-module.exports = {
-  networks,
-  amms
-}
+module.exports = { networks, amms }
