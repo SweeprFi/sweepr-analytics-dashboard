@@ -8,7 +8,7 @@ const networks = [
 
 const amms = {
   mainnet: {
-    amm: "0xe3E123ED9fec48a6f40A8aC7bE9afEDDAD80F146",
+    amm: "0x9cE2837d6d84bb521A5a3002a2132B9E9E9cc4C8",
   },
   arbitrum: {
     amm: "0xf0604A1c725F8eeb14FF082F2275AfE0B67A32D5",
