@@ -4,7 +4,8 @@ const networks = [
   "optimism",
   "base",
   "avalanche",
-  "polygon"
+  "polygon",
+  "bsc",
 ]
 
 const amms = {
@@ -25,7 +26,12 @@ const amms = {
   },
   polygon: {
     amm: "0x71Dc6599cbA8d7087725f23c0681308A13A451bB",
-  }
+  },
+  bsc: {
+    amm: "0xa5Dd492674f8C68C89b403BDFd0e794db42f2b92",
+    tokenId: 373654,
+    decimals: 18
+  },
 }
 
 module.exports = { networks, amms }
