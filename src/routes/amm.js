@@ -18,7 +18,7 @@ router.get('/amm/', async (req, res) => {
         const response = {};
         const allDataPromises = networks.map(async (net) => {
             const ammAddress = amms[net]?.amm;
-            const tokenId = amms[net]?.tokenId || 0;
+            const tokenId = amms[net]?.tokenId || [0];
             return { [net]: await amm.fetchData(net, ammAddress, tokenId) };
         });
 
@@ -43,9 +43,8 @@ router.get('/amm/', async (req, res) => {
 router.get('/amm/:network', async (req, res) => {
     try {
         const network = req.params.network;
-
         const ammAddress = amms[network]?.amm;
-        const tokenId = amms[network]?.tokenId || 0;
+        const tokenId = amms[network]?.tokenId || [0];
  
         const [priceResult, fetchDataResult] = await Promise.all([
             sweep.getPrice(network),

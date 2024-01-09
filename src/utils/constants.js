@@ -29,8 +29,7 @@ const amms = {
   },
   bsc: {
     amm: "0xa5Dd492674f8C68C89b403BDFd0e794db42f2b92",
-    tokenId: 373654,
-    decimals: 18
+    tokenId: [375351, 375459]
   },
 }
 
