@@ -64,7 +64,8 @@ router.get('/assets', async (req, res) => {
         });
 
         const response = await Promise.all(allDataPromises);
-        res.json({ response });
+        const responseParsed = processResponse(response);
+        res.json({ response: responseParsed });
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
@@ -72,7 +73,21 @@ router.get('/assets', async (req, res) => {
 
 async function processMinters(network, minters) {
     const promises = minters.map(async(minter) => await asset.fetchData(network, minter));
-    return {[network]: await Promise.all(promises)};
+    return { ...await Promise.all(promises), network };
+}
+
+function processResponse(resp) {
+    var data = []
+    resp.forEach(network => {
+        Object.keys(network).forEach(key => {
+            if(key !== "network") {
+                const newElement = {...network[key], network: network["network"]};
+                data.push(newElement)
+            }
+        })
+    });
+
+    return data;
 }
 
 module.exports = router;
