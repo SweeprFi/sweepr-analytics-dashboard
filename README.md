@@ -53,6 +53,12 @@ Make sure you have the following components installed before getting started:
 * Query parameters:
 1. network: (mainnet - arbitrum - optimism)
 
+- GET /assets
+> Fetches all asset data from all networks.
+
+- GET /assets/:network
+> Fetches all asset data from the provided network.
+
 - GET /asset
 > Fetches all read-only data from the Asset.
 * Query parameters:

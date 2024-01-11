@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const { Sweep, Asset, Provider } = require("sweepr-analytics");
+const { networks } = require("../utils/constants");
 
 const provider = new Provider();
 provider.setProvider("mainnet", process.env.MAINNET_KEY);
@@ -26,5 +27,52 @@ router.get('/asset', async (req, res) => {
         res.status(500).json({ error: error.message });
     }
 });
+
+router.get('/assets/:network', async (req, res) => {
+    try {
+        const { network } = req.params;
+        const { minters } = await sweep.getMinters(network);
+
+        const allDataResults = await Promise.all(
+            minters.map(async (minter) => ({
+                [minter]: await asset.fetchData(network, minter)
+            }))
+        );
+
+        const response = allDataResults.reduce((acc, result) => {
+            const minter = Object.keys(result)[0];
+            acc[minter] = { ...result[minter] };
+            return acc;
+        }, {});
+
+        res.json({ [network]: response });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
+
+router.get('/assets', async (req, res) => {
+    try {
+        const allMintersPromises = networks.map(async (network) => ({
+            [network]: await sweep.getMinters(network)
+        }));
+
+        const allMinters = await Promise.all(allMintersPromises);
+        const allDataPromises = allMinters.map(async (item) => {
+            const [network, { minters }] = Object.entries(item)[0];
+            return processMinters(network, minters);
+        });
+
+        const response = await Promise.all(allDataPromises);
+        res.json({ response });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
+
+async function processMinters(network, minters) {
+    const promises = minters.map(async(minter) => await asset.fetchData(network, minter));
+    return {[network]: await Promise.all(promises)};
+}
 
 module.exports = router;

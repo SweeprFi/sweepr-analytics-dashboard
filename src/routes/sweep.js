@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-const { networks, amms } = require("../utils/constants");
+const { networks } = require("../utils/constants");
 const { Provider, Sweep } = require("sweepr-analytics");
 
 const provider = new Provider();
