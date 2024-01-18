@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 
 const { networks } = require("../utils/constants");
-const { Provider, Sweepr } = require("sweepr-analytics");
+const { Provider, Sweepr, Vesting } = require("sweepr-analytics");
 
 const provider = new Provider();
 provider.setProvider("mainnet", process.env.MAINNET_KEY);
@@ -12,6 +12,7 @@ provider.setProvider("polygon", process.env.POLYGON_KEY);
 provider.setProvider("bsc", process.env.BSC_KEY);
 
 const sweepr = new Sweepr(provider);
+const vesting = new Vesting(provider);
 
 router.get('/sweepr', async (req, res) => {
     try {
@@ -65,6 +66,26 @@ router.get('/sweepr-total-supply', async (req, res) => {
         const { network } = req.query;
         const response = await sweepr.getTotalSupply(network);
         res.json({ response });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
+
+//required for Coinmarketcap and Coingecko
+router.get('/sweeprtotal', async (req, res) => {
+    try {
+        const response = await sweepr.getTotalMinted("arbitrum");
+        res.json(response.totalMinted);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
+
+router.get('/sweeprcirculating', async (req, res) => {
+    try {
+        const { totalMinted } = await sweepr.getTotalMinted("arbitrum");
+        const { locked } = await vesting.lockedAmount("arbitrum", "0x483761F16A7c978df09d1e7E22532e9DbD2Ee8D0");
+        res.json(totalMinted-locked);
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
