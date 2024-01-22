@@ -134,4 +134,19 @@ router.get('/sweeptotal', async (req, res) => {
     }
 });
 
+router.get('/sweepsupply', async (req, res) => {
+    try {
+        const allDataPromises = networks.map(async (network) => (
+            await sweep.getTotalSupply(network)
+        ));
+        const allDataResults = await Promise.all(allDataPromises);
+        let sum = 0;
+        allDataResults.forEach(result => { sum += result.totalSupply });
+
+        res.json(sum);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
+
 module.exports = router;

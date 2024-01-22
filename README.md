@@ -70,3 +70,16 @@ Make sure you have the following components installed before getting started:
 
 - GET /amm/:network
 > Performs a query to the AMM Sweep protocol for the provided network.
+
+- GET /sweeptotal
+- GET /sweepsupply
+> Fetches the total amount of SWEEP that has been minted.
+> Returns a numerical value.
+
+- GET /sweeprtotal
+> Fetches the total amount of SWEEPR that has been minted.
+> Returns a numerical value.
+
+- GET /sweeprcirculating
+> Fetches the total amomunt of SWEEPR that is currently circulating.
+> Returns a numerical value represented by the formula: `totalAmount - lockedAmount` at the vesting approver list.
