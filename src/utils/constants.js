@@ -29,7 +29,7 @@ const amms = {
   },
   bsc: {
     amm: "0xa5Dd492674f8C68C89b403BDFd0e794db42f2b92",
-    tokenId: [375351, 375459]
+    market: "0x47a393e60DfCF12CA3892dBC2C2E66BCE083BB26",
   },
 }
 

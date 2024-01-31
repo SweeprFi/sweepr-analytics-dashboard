@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { Provider, AMM, Sweep } = require('sweepr-analytics');
+const { Provider, AMM, Sweep, MarketMaker } = require('sweepr-analytics');
 const { networks, amms } = require('../utils/constants');
 
 const provider = new Provider();
@@ -12,13 +12,19 @@ provider.setProvider("bsc", process.env.BSC_KEY);
 
 const amm = new AMM(provider);
 const sweep = new Sweep(provider);
+const market = new MarketMaker(provider);
 
 router.get('/amm/', async (req, res) => {
     try {
         const response = {};
         const allDataPromises = networks.map(async (net) => {
             const ammAddress = amms[net]?.amm;
-            const tokenId = amms[net]?.tokenId || [0];
+            const marketAddress = amms[net]?.market;
+            let tokenId = [0];
+            if(marketAddress) {
+                tokenId = await market.getPositions(net, marketAddress);
+            }
+
             return { [net]: await amm.fetchData(net, ammAddress, tokenId) };
         });
 
@@ -44,7 +50,12 @@ router.get('/amm/:network', async (req, res) => {
     try {
         const network = req.params.network;
         const ammAddress = amms[network]?.amm;
-        const tokenId = amms[network]?.tokenId || [0];
+        const marketAddress = amms[network]?.market;
+        let tokenId = [0];
+
+        if(marketAddress) {
+            tokenId = await market.getPositions(network, marketAddress);
+        }
  
         const [priceResult, fetchDataResult] = await Promise.all([
             sweep.getPrice(network),
