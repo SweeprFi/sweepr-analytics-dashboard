@@ -13,7 +13,7 @@ const amms = {
     amm: "0x9cE2837d6d84bb521A5a3002a2132B9E9E9cc4C8",
   },
   arbitrum: {
-    amm: "0xf0604A1c725F8eeb14FF082F2275AfE0B67A32D5",
+    amm: "0x72E5b0E088c895ab0d6A86d14943C63aD735B7Cc",
   },
   optimism: {
     amm: "0x33A48e4aA79A66fc4f7061f5D9E274528C213029",
@@ -28,8 +28,8 @@ const amms = {
     amm: "0x71Dc6599cbA8d7087725f23c0681308A13A451bB",
   },
   bsc: {
-    amm: "0xff368E106EA8782FaB6B2D4AD69739a60C66400E",
-    market: "0x47a393e60DfCF12CA3892dBC2C2E66BCE083BB26",
+    amm: "0xb86d3eea67A8bcaF232Ee9643d5ae5C44525c57e",
+    market: "0xe3E123ED9fec48a6f40A8aC7bE9afEDDAD80F146",
   },
 }
 
