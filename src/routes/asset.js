@@ -62,7 +62,7 @@ router.get('/assets', async (req, res) => {
         });
 
         const data = await Promise.all(promises);
-        res.json({ response: data });
+        res.json(data);
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
