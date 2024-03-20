@@ -16,17 +16,16 @@ const vesting = new Vesting(provider);
 
 router.get('/sweepr', async (req, res) => {
     try {
-        const response = {};
-        const responses = await Promise.all(networks.map(async (net) => ({
+        const allDataResults = await Promise.all(networks.map(async (net) => ({
             [net]: await sweepr.fetchData(net)
         })));
 
-        responses.forEach((resp) => {
-            const net = Object.keys(resp)[0];
-            response[net] = resp[net];
+        const response = allDataResults.map(result => {
+            const net = Object.keys(result)[0];
+            return { ...result[net], network: net };
         });
 
-        res.json({ response });
+        res.json(response);
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
@@ -35,7 +34,7 @@ router.get('/sweepr', async (req, res) => {
 router.get('/sweepr/:network', async (req, res) => {
     try {
         const response = await sweepr.fetchData(req.params.network);
-        res.json({ response });
+        res.json(response);
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
@@ -45,7 +44,7 @@ router.get('/sweepr-allowance', async (req, res) => {
     try {
         const { network, owner, spender } = req.query;
         const response = await sweepr.getAllowance(network, owner, spender);
-        res.json({ response });
+        res.json(response);
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
@@ -55,7 +54,7 @@ router.get('/sweepr-balance', async (req, res) => {
     try {
         const { network, account } = req.query;
         const response = await sweepr.getBalance(network, account);
-        res.json({ response });
+        res.json(response);
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
@@ -65,7 +64,7 @@ router.get('/sweepr-total-supply', async (req, res) => {
     try {
         const { network } = req.query;
         const response = await sweepr.getTotalSupply(network);
-        res.json({ response });
+        res.json(response);
     } catch (error) {
         res.status(500).json({ error: error.message });
     }

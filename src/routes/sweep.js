@@ -15,18 +15,17 @@ const sweep = new Sweep(provider);
 
 router.get('/sweep', async (req, res) => {
     try {
-        const response = {};
         const allDataPromises = networks.map(async (net) => ({
             [net]: await sweep.fetchData(net)
         }));
         const allDataResults = await Promise.all(allDataPromises);
 
-        allDataResults.forEach(result => {
+        const response = allDataResults.map(result => {
             const net = Object.keys(result)[0];
-            response[net] = { ...result[net] };
+            return { ...result[net], network: net };
         });
 
-        res.json({ response });
+        res.json(response);
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
@@ -37,7 +36,7 @@ router.get('/sweep/:network', async (req, res) => {
         const network = req.params.network;
         const response = await sweep.fetchData(network)
 
-        res.json({ ...response });
+        res.json(response);
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
@@ -47,7 +46,7 @@ router.get('/sweep-allowance', async (req, res) => {
     try {
         const { network, owner, spender } = req.query;
         const response = await sweep.getAllowance(network, owner, spender);
-        res.json({ response });
+        res.json(response);
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
@@ -57,7 +56,7 @@ router.get('/sweep-balance', async (req, res) => {
     try {
         const { network, account } = req.query;
         const response = await sweep.getBalance(network, account);
-        res.json({ response });
+        res.json(response);
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
@@ -67,7 +66,7 @@ router.get('/sweep-minters', async (req, res) => {
     try {
         const { network } = req.query;
         const response = await sweep.getMinters(network);
-        res.json({ response });
+        res.json(response);
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
@@ -77,7 +76,7 @@ router.get('/sweep-minter', async (req, res) => {
     try {
         const { network, account } = req.query;
         const response = await sweep.getMinter(network, account);
-        res.json({ response });
+        res.json(response);
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
@@ -87,7 +86,7 @@ router.get('/sweep-valid-minter', async (req, res) => {
     try {
         const { network, minter } = req.query;
         const response = await sweep.validMinter(network, minter);
-        res.json({ response });
+        res.json(response);
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
@@ -97,7 +96,7 @@ router.get('/sweep-total-supply', async (req, res) => {
     try {
         const { network } = req.query;
         const response = await sweep.getTotalSupply(network);
-        res.json({ response });
+        res.json(response);
     } catch (error) {
         res.status(500).json({ error: error.message });
     }

@@ -22,7 +22,7 @@ router.get('/asset', async (req, res) => {
 
         const response = await asset.fetchData(network, address);
 
-        res.json({ response });
+        res.json(response);
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
@@ -39,7 +39,7 @@ router.get('/assets/:network', async (req, res) => {
         });
 
         const data = await Promise.all(promises);
-        res.json({ response: data });
+        res.json(data);
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
