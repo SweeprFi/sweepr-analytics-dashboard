@@ -17,12 +17,13 @@ const market = new MarketMaker(provider);
 router.get('/amm/', async (req, res) => {
     try {
         const response = {};
+        const { grow } = req.query;
         const allDataPromises = networks.map(async (net) => {
             const ammAddress = amms[net]?.amm;
             const marketAddress = amms[net]?.market;
             let tokenId = [0];
             if(marketAddress) {
-                tokenId = await market.getPositions(net, marketAddress);
+                tokenId = await market.getPositions(net, marketAddress, !!grow);
             }
 
             return { [net]: await amm.fetchData(net, ammAddress, tokenId) };
@@ -51,10 +52,11 @@ router.get('/amm/:network', async (req, res) => {
         const network = req.params.network;
         const ammAddress = amms[network]?.amm;
         const marketAddress = amms[network]?.market;
+        const { grow } = req.query;
         let tokenId = [0];
 
         if(marketAddress) {
-            tokenId = await market.getPositions(network, marketAddress);
+            tokenId = await market.getPositions(network, marketAddress, !!grow);
         }
  
         const [priceResult, fetchDataResult] = await Promise.all([
