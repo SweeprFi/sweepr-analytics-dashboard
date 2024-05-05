@@ -83,3 +83,7 @@ Make sure you have the following components installed before getting started:
 - GET /sweeprcirculating
 > Fetches the total amomunt of SWEEPR that is currently circulating.
 > Returns a numerical value represented by the formula: `totalAmount - lockedAmount` at the vesting approver list.
+
+- GET /deal/:address
+> Fetches the deal data from the provided address. (this must be in Arbitrum)
+> Returns four values for every NFT minted: ClaimedAmount, StakedAmount, Owner (staker), TBA associated to the NFT

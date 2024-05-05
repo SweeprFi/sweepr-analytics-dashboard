@@ -8,6 +8,7 @@ const assetRoutes = require('../../src/routes/asset');
 const sweepRoutes = require('../../src/routes/sweep');
 const sweeprRoutes = require('../../src/routes/sweepr');
 const ammRoutes = require('../../src/routes/amm');
+const dealRoutes = require('../../src/routes/deal');
 // const forbiddenRoutes = require('../../src/routes/forbidden');
 
 const app = express();
@@ -26,6 +27,7 @@ app.use('/api/', assetRoutes);
 app.use('/api/', sweepRoutes);
 app.use('/api/', sweeprRoutes);
 app.use('/api/', ammRoutes);
+app.use('/api/', dealRoutes);
 // app.use('/api/', forbiddenRoutes);
 
 module.exports.handler = serverless(app);
