@@ -10,17 +10,16 @@ provider.setProvider("arbitrum", process.env.ARBITRUM_KEY);
 // provider.setProvider("bsc", process.env.BSC_KEY);
 
 const deal = new DealNFT(provider);
-const NETWORK = "arbitrum";
 
-router.get('/deal/:address', async (req, res) => {
+router.get('/deal/:network/:address', async (req, res) => {
     try {
-        const response = {};
+        const network = req.params.network;
         const dealAddress = req.params.address;
-        const { nextId } = await deal.getNextId(NETWORK, dealAddress);
+        const { nextId } = await deal.getNextId(network, dealAddress);
 
         const promises = [];
         for (let index = 0; index < nextId; index++) {
-            promises.push(deal.getClaimedData(NETWORK, dealAddress, index));
+            promises.push(deal.getClaimedData(network, dealAddress, index));
         }
         const data = await Promise.all(promises);
 
