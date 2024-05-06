@@ -29,4 +29,16 @@ router.get('/deal/:network/:address', async (req, res) => {
     }
 });
 
+router.get('/deals/:network/:address', async (req, res) => {
+    try {
+        const network = req.params.network;
+        const dealAddress = req.params.address;
+        const data = await deal.getDealData(network, dealAddress);
+
+        res.json(data);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
+
 module.exports = router;
