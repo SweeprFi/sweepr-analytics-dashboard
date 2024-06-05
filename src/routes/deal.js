@@ -12,7 +12,7 @@ provider.setProvider("base", process.env.BASE_KEY);
 
 const deal = new DealNFT(provider);
 
-router.get('/deal/:network/:address', async (req, res) => {
+router.get('/stakes/:network/:address', async (req, res) => {
     try {
         const network = req.params.network;
         const dealAddress = req.params.address;
@@ -30,11 +30,23 @@ router.get('/deal/:network/:address', async (req, res) => {
     }
 });
 
-router.get('/deals/:network/:address', async (req, res) => {
+router.get('/deal/:network/:address', async (req, res) => {
     try {
         const network = req.params.network;
         const dealAddress = req.params.address;
         const data = await deal.getDealData(network, dealAddress);
+
+        res.json(data);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
+
+router.get('/card/:network/:address', async (req, res) => {
+    try {
+        const network = req.params.network;
+        const dealAddress = req.params.address;
+        const data = await deal.getDealCardData(network, dealAddress);
 
         res.json(data);
     } catch (error) {

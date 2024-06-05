@@ -18,6 +18,7 @@ Make sure you have the following components installed before getting started:
 
 ## Availables routes
 
+# SWEEP
 - GET /sweep
 > Performs a query to the Sweep protocol for all networks.
 
@@ -84,6 +85,14 @@ Make sure you have the following components installed before getting started:
 > Fetches the total amomunt of SWEEPR that is currently circulating.
 > Returns a numerical value represented by the formula: `totalAmount - lockedAmount` at the vesting approver list.
 
-- GET /deal/:address
-> Fetches the deal data from the provided address. (this must be in Arbitrum)
-> Returns four values for every NFT minted: ClaimedAmount, StakedAmount, Owner (staker), TBA associated to the NFT
+# SURGE
+- GET /deal/:network/:address
+> Fetches the deal data from the provided address.
+
+- GET /stakes/:network/:address
+> Fetches the stakes data from the provided deal address.
+> Returns four values for every NFT minted: ClaimedAmount, StakedAmount, Owner (staker), TBA associated to the NFT.
+
+- GET /card/:network/:address
+> Fetches data from the provided deal address.
+> Returns four values for every NFT minted: Name, Description, State, Image.
