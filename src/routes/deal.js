@@ -16,14 +16,7 @@ router.get('/stakes/:network/:address', async (req, res) => {
     try {
         const network = req.params.network;
         const dealAddress = req.params.address;
-        const { nextId } = await deal.getNextId(network, dealAddress);
-
-        const promises = [];
-        for (let index = 0; index < nextId; index++) {
-            promises.push(deal.getClaimedData(network, dealAddress, index));
-        }
-        const data = await Promise.all(promises);
-
+        const data = await deal.getClaimedData(network, dealAddress);
         res.json(data);
     } catch (error) {
         res.status(500).json({ error: error.message });
