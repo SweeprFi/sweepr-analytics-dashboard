@@ -11,4 +11,4 @@
 [[headers]]
   for = "/api/card/*"
   [headers.values]
-    Cache-Control = "max-age=60, stale-while-revalidate=600, public"
+    Cache-Control = "max-age=600, stale-while-revalidate=300, public"

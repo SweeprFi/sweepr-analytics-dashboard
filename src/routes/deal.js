@@ -41,7 +41,7 @@ router.get('/card/:network/:address', async (req, res) => {
         const dealAddress = req.params.address;
         const data = await deal.getDealCardData(network, dealAddress);
 
-        res.set({'Cache-Control': 'max-age=60, stale-while-revalidate=600, public'});
+        res.set({'Cache-Control': 'max-age=600, stale-while-revalidate=300, public'});
         res.json(data);
     } catch (error) {
         res.status(500).json({ error: error.message });
