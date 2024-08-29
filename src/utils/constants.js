@@ -6,6 +6,7 @@ const networks = [
   "avalanche",
   "polygon",
   "bsc",
+  "bob",
 ]
 
 const amms = {
@@ -30,6 +31,9 @@ const amms = {
   bsc: {
     amm: "0xb86d3eea67A8bcaF232Ee9643d5ae5C44525c57e",
     market: "0xe3E123ED9fec48a6f40A8aC7bE9afEDDAD80F146",
+  },
+  bob: {
+    amm: "",
   },
 }
 

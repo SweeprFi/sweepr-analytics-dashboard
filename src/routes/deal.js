@@ -5,6 +5,7 @@ const { Provider, DealNFT } = require('sweepr-analytics');
 const provider = new Provider();
 provider.setProvider("arbitrum", process.env.ARBITRUM_KEY);
 provider.setProvider("base", process.env.BASE_KEY);
+provider.setProvider("bob", process.env.BOB_KEY);
 // provider.setProvider("mainnet", process.env.MAINNET_KEY);
 // provider.setProvider("optimism", process.env.OPTIMISTIC_KEY);
 // provider.setProvider("polygon", process.env.POLYGON_KEY);

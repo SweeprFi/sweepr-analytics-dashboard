@@ -20,6 +20,8 @@ router.get('/amm/', async (req, res) => {
         const { grow } = req.query;
         const allDataPromises = networks.map(async (net) => {
             const ammAddress = amms[net]?.amm;
+            if(!ammAddress) return { [net]: {} };
+
             const marketAddress = amms[net]?.market;
             let tokenId = [0];
             if(marketAddress) {
@@ -54,6 +56,7 @@ router.get('/amm/:network', async (req, res) => {
         const marketAddress = amms[network]?.market;
         const { grow } = req.query;
         let tokenId = [0];
+        if(!ammAddress) return { [net]: {} };
 
         if(marketAddress) {
             tokenId = await market.getPositions(network, marketAddress, !!grow);
